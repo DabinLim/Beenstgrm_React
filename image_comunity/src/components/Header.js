@@ -18,7 +18,6 @@ const Header = (props) => {
 
   // 세션 스토리지에 세션이 있으면 true 없으면 false
   const is_session = sessionStorage.getItem(_session_key)? true: false;
-  console.log(is_session);
 
   // 리덕스의 로그인 상태가 true이고 세션 스토리지의 세션이 있다면 렌더링
   if (is_login && is_session ) {
@@ -36,7 +35,7 @@ const Header = (props) => {
             <Button
               text="로그아웃"
               _onClick={() => {
-                dispatch(userActions.logOut({}));
+                dispatch(userActions.logoutFB());
               }}
             ></Button>
           </Grid>

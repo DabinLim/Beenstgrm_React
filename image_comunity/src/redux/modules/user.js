@@ -56,6 +56,18 @@ const loginCheckFB = () => {
     }
 }
 
+// 로그아웃 
+const logoutFB = () => {
+    return function (dispatch, getState, {history}) {
+        auth.signOut().then(() => {
+            // 로그아웃 액션 
+            dispatch(logOut());
+            // 뒤로가기 안됨
+            history.replace('/');
+        })
+    }
+}
+
 const loginFB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
 
@@ -148,6 +160,7 @@ const actionCreators = {
   signupFB,
   loginFB,
   loginCheckFB,
+  logoutFB,
 };
 
 export { actionCreators };

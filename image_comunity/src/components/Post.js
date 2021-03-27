@@ -6,8 +6,10 @@ const Post = (props) => {
     <React.Fragment>
       <Grid>
         <Grid is_flex>
+            <Grid is_flex width='auto'>
             <Image shape='circle' src={props.src}/>
-            <Text bold>{props.user_info.user_name}</Text>
+            <Text margin='14px 10px' bold>{props.user_info.user_name}</Text>
+            </Grid>
             <Text>{props.insert_dt}</Text>
         </Grid>
         <Grid padding="16px">

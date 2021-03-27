@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Input, Grid, Text, Button } from "../elements";
 import {useDispatch} from 'react-redux';
 import {actionCreators as userActions} from '../redux/modules/user';
+import {emailCheck} from '../shared/common';
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -10,16 +11,27 @@ const Signup = (props) => {
   const [pwd, setPwd] = React.useState('');
   const [user_name, setUserName] = React.useState('');
   const [pwd_check, setPwdCheck] = React.useState('');
-
+  let num = 0;
   const signup = () => {
-
-    dispatch(userActions.signupFB(id, pwd, user_name))
     if(id === '' || pwd === '' || user_name === ''){
+      window.alert('이메일, 패스워드, 닉네임을 모두 입력하세요.')
       return;
     }
     if(pwd !== pwd_check){
+      if (num<3){
+        num += 1;
+        window.alert('패스워드가 다릅니다.'+num)
+        return;
+      } else {
+        window.alert('너 바보냐?');
+        return;
+      }
+    }
+    if(!emailCheck(id)){
+      window.alert('이메일 형식이 올바르지 않습니다.');
       return;
     }
+    dispatch(userActions.signupFB(id, pwd, user_name))
   }
   return (
     <React.Fragment>
