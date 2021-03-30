@@ -2,6 +2,7 @@ import firebase from'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import 'firebase/database';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBKQjuDrZVFWzU0yOHSYzi23Uf-knfYmeM",
@@ -26,4 +27,7 @@ const firestore = firebase.firestore();
 // firbases 의 storage 사용 준비
 const storage = firebase.storage();
 
-export {auth, apiKey, firestore, storage};
+// realtime 사용 준비
+const realtime = firebase.database();
+
+export {auth, apiKey, firestore, storage, realtime};

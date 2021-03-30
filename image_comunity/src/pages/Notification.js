@@ -3,35 +3,43 @@ import Card from "../components/Card";
 import { Grid, Text, Image } from "../elements";
 import post from "../redux/modules/post";
 
+import {realtime} from '../shared/firebase';
+import {useSelector} from 'react-redux';
+
 const Notification = (props) => {
-  let noti = [
-    {
-      user_name: "dabin",
-      post_id: "post1",
-      image_url: "",
-    },
-    {
-      user_name: "dabin",
-      post_id: "post2",
-      image_url: "",
-    },
-    {
-      user_name: "dabin",
-      post_id: "post3",
-      image_url: "",
-    },
-    {
-      user_name: "dabin",
-      post_id: "post4",
-      image_url: "",
-    },
-  ];
+  const user = useSelector(state => state.user.user);
+  const [noti, setNoti] = React.useState([]);
+  React.useEffect(() => {
+    if(!user){
+      return;
+    }
+
+    const notiDB = realtime.ref(`noti/${user.uid}/list`);
+
+    // realtimeDB의 경우는 오름차순만 지원
+    const _noti = notiDB.orderByChild('insert_dt');
+
+    _noti.once('value', snapshot => {
+      if(snapshot.exists()){
+        let _data = snapshot.val();
+        console.log(_data)
+        // 내림차순으로 정렬
+        let _noti_list = Object.keys(_data).reverse().map(s => {
+          return _data[s];
+        })
+
+        console.log(_noti_list);
+        setNoti(_noti_list)
+      }
+    })
+  },[user]);
+
   return (
     <React.Fragment>
       <Grid padding="16px" bg="#EFF6FF">
-        {noti.map((n) => {
+        {noti.map((n, index) => {
           return (
-            <Card key={post.id} {...n}></Card>
+            <Card key={`noti_${index}`} {...n}></Card>
           );
         })}
       </Grid>

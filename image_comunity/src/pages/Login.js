@@ -53,14 +53,14 @@ const Login = (props) => {
             _onChange={(e) => {
               setPwd(e.target.value);
             }}
+            value={pwd}
+            is_Submit
+            onSubmit={login}
           />
         </Grid>
         <Button
           text="로그인하기"
-          _onClick={() => {
-            console.log("로그인 했다");
-            login();
-          }}
+          _onClick={login}
         ></Button>
       </Grid>
     </React.Fragment>

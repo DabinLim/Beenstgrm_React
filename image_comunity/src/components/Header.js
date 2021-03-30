@@ -6,9 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { history } from "../redux/configStore";
 import { apiKey } from "../shared/firebase";
+import NotiBadge from './NotiBadge';
 
 const Header = (props) => {
   const dispatch = useDispatch();
+  
 
   // 리덕스의 로그인 상태 가져오기
   const is_login = useSelector((state) => state.user.is_login);
@@ -31,9 +33,13 @@ const Header = (props) => {
           </Grid>
           <Grid is_flex>
             <Button text="내 정보"></Button>
-            <Button _onClick={() => {
+            {/* <Button _onClick={() => {
               history.push('/noti')
-            }}text="알림"></Button>
+            }}text="알림"></Button> */}
+            <NotiBadge _onClick={() => {
+              history.push('/noti')
+              console.log('알림페이지로')
+            }}/>
             <Button
               text="로그아웃"
               _onClick={() => {

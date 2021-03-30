@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore } from "../../shared/firebase";
+import { firestore, realtime } from "../../shared/firebase";
 import "moment";
 import moment from "moment";
 import firebase from 'firebase/app';
@@ -56,6 +56,23 @@ const addCommentFB = (post_id, contents) => {
                 // post 정보가 있을때 유저가 보고 있는 화면의 댓글 갯수도 변경시키기 위해 post 리덕스의 state도 업데이트
                 if(post){
                     dispatch(postActions.editPost(post_id,{comment_cnt: parseInt(post.comment_cnt) + 1}))
+                }
+            })
+            const _noti_item = realtime.ref(`noti/${post.user_info.user_id}/list`).push();
+
+            _noti_item.set({
+                post_id:post.id,
+                user_name: comment.user_name,
+                image_url: post.image_url,
+                insert_dt: comment.insert_dt,
+
+            }, (err) => {
+                if(err){
+                    console.log('알림저장에 실패했어요');
+                }else {
+                    const notiDB = realtime.ref(`noti/${post.user_info.user_id}`);
+
+                    notiDB.update({read:false});
                 }
             })
         })
