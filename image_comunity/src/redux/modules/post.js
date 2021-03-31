@@ -3,6 +3,7 @@ import { produce } from "immer";
 import { firestore, storage } from "../../shared/firebase";
 import moment from "moment";
 import { actionCreators as imageActions } from "./image";
+import like from "./like";
 
 // actions
 const SET_POST = "SET_POST";
@@ -11,7 +12,7 @@ const EDIT_POST = "EDIT_PODT";
 const LOADING = "LOADING";
 
 // action creater
-const setPost = createAction(SET_POST, (post_list, paging) => ({ post_list, paging }));
+const setPost = createAction(SET_POST, (post_list, paging, like_list) => ({ post_list, paging, like_list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -23,6 +24,7 @@ const initialState = {
   list: [],
   paging: {start: null, next: null, size: 3},
   is_loading: false,
+  like_list:[],
 };
 
 const initialPost = {
@@ -36,6 +38,7 @@ const initialPost = {
     "https://reactdabin.s3.ap-northeast-2.amazonaws.com/file-2021-03-03-21-38-26.png",
   contents: "",
   comment_cnt: 0,
+  like_cnt: 0,
   insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
 };
 
@@ -105,7 +108,7 @@ const editPostFB = (post_id = null, post = {}) => {
   };
 };
 
-const addPostFB = (contents = "") => {
+const addPostFB = (contents = "", layout) => {
   return function (dispatch, getState, { history }) {
     const _user = getState().user.user;
     const postDB = firestore.collection("post");
@@ -117,6 +120,7 @@ const addPostFB = (contents = "") => {
     };
     const _post = {
       ...initialPost,
+      layout: layout,
       contents: contents,
       insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
     };
@@ -187,6 +191,7 @@ const getPostFB = (start = null, size = 3) => {
       query = query.startAt(start);
     }
 
+
     // 데이터를 size+1개 까지만 가져온다. -> 다음 데이터가 있는지 구분하기 위해서 state에 넣을 값보다 +1 만큼 가져옴
     query.limit(size + 1).get().then(docs => {
       let paging = {
@@ -234,15 +239,28 @@ const getPostFB = (start = null, size = 3) => {
         //   contents: _post.contents,
         //   comment_cnt: _post.comment_cnt,
         //   insert_dt: _post.insert_dt,
+        //   like_state: {
+        //   },
         // };
+        
         post_list.push(post);
-        console.log(post_list)
       });
       // 3개를 렌더링 하려는데 4개를 가져왔으므르 하나 빼준다. 4개 미만으로 가져왔다면(next==null 이라는 뜻) 모두 렌더링 해야 하므로 빼주지 않는다.
       if(post_list.length === size +1){
         post_list.pop()
       }
-      console.log(post_list)
+      // const likeDB = firestore.collection('like');
+      // const user_id = getState().user.user.uid;
+      // let like_list = []
+      // for (let i = 0; i < post_list.length; i ++){
+      //   likeDB.where('post_id','==',post_list[i].id).where('user_id','==',user_id).get().then((docs)=>{
+      //     docs.forEach((doc) => {
+      //       if(doc){
+      //         console.log(doc.data().user_like)
+      //       }
+      //     })
+      //   })
+      // }
       dispatch(setPost(post_list, paging));
     });
 
@@ -346,6 +364,10 @@ export default handleActions(
         if(action.payload.paging){
         draft.paging = action.payload.paging;
         draft.is_loading = false;
+        }
+
+        if(action.payload.like_list){
+          draft.like_list = action.payload.like_list;
         }
       }),
 

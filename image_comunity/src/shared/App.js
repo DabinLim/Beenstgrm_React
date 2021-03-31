@@ -12,7 +12,7 @@ import PostWrite from '../pages/PostWrite';
 import PostDetail from '../pages/PostDetail';
 import Search from '../pages/Search';
 import Notification from'../pages/Notification';
-import { Button, Grid } from "../elements";
+import { Button, Grid, Text } from "../elements";
 import {actionCreators as userActions} from '../redux/modules/user';
 import {useDispatch} from 'react-redux';
 import { apiKey } from "./firebase";
@@ -34,7 +34,9 @@ function App() {
   },[]);
   return (
     <React.Fragment>
-      <Grid>
+      <Grid is_container>
+      <Text size='24px' color='#de60c2' bold margin='14px 0px 14px 10px'>Beenstrgm</Text>
+      <Grid is_container>
         <Header></Header>
         <BrowserRouter>
         <ConnectedRouter history={history}>
@@ -48,6 +50,7 @@ function App() {
           <Route path="/noti" exact component={Notification} />
           </ConnectedRouter>
         </BrowserRouter>
+      </Grid>
       </Grid>
       <Permit>
         <Button text='+' is_float _onClick={() => {history.push('/write')}}></Button>

@@ -14,7 +14,11 @@ const Header = (props) => {
 
   // 리덕스의 로그인 상태 가져오기
   const is_login = useSelector((state) => state.user.is_login);
-
+  const user_info = useSelector((state) => state.user.user);
+  let user_name;
+  if(user_info){
+    user_name = user_info.user_name;
+  }
   // 세션에 저장된 키 가져오기
   const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
 
@@ -27,19 +31,19 @@ const Header = (props) => {
       <React.Fragment>
         <Grid is_flex padding="4px">
           <Grid>
-            <Text margin="0px" size="24px" bold>
-              헬로
+            <Text margin="0px" size="20px" bold>
+              {user_name? user_name+'님 헬로~': '헬로~'}
             </Text>
           </Grid>
           <Grid is_flex>
+          <NotiBadge _onClick={() => {
+              history.push('/noti')
+              console.log('알림페이지로')
+            }}/>
             <Button text="내 정보"></Button>
             {/* <Button _onClick={() => {
               history.push('/noti')
             }}text="알림"></Button> */}
-            <NotiBadge _onClick={() => {
-              history.push('/noti')
-              console.log('알림페이지로')
-            }}/>
             <Button
               text="로그아웃"
               _onClick={() => {

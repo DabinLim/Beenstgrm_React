@@ -1,4 +1,5 @@
 import React from "react";
+import {Button} from '../elements';
 import { Badge } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 
@@ -28,9 +29,11 @@ const NotiBadge = (props) => {
 
   return (
     <React.Fragment>
+      <Button is_alert>
       <Badge color="secondary" variant="dot" invisible={is_read} onClick={notiCheck}>
-        <NotificationsIcon />
+        <NotificationsIcon/>
       </Badge>
+      </Button>
     </React.Fragment>
   );
 };

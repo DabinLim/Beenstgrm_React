@@ -6,14 +6,12 @@ import InfinityScroll from "../shared/InfinityScroll";
 import { Grid } from "../elements";
 
 const PostList = (props) => {
-    console.log(props)
   const dispatch = useDispatch();
   // post.js 리덕스의 state 값 중 list를 가져온다.
   const post_list = useSelector((state) => state.post.list);
   const user_info = useSelector((state) => state.user.user);
   const is_loading = useSelector((state) => state.post.is_loading);
   const paging = useSelector((state) => state.post.paging);
-
   const { history } = props;
   // console.log(user_info.uid)
 
@@ -40,9 +38,6 @@ const PostList = (props) => {
                 bg={'#FFFFFF'}
                 margin='10px 0px'
                   key={p.id}
-                  _onClick={() => {
-                    history.push(`/post/${p.id}`);
-                  }}
                 >
                   <Post {...p} is_me />
                 </Grid>
@@ -52,10 +47,7 @@ const PostList = (props) => {
                 <Grid
                 bg={'#FFFFFF'}
                 margin='10px 0px'
-                  key={p.id}
-                  _onClick={() => {
-                    history.push(`/post/${p.id}`);
-                  }}
+                  key={p.id}      
                 >
                   <Post {...p} />
                 </Grid>

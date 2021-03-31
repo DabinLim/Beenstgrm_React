@@ -38,9 +38,13 @@ const Notification = (props) => {
     <React.Fragment>
       <Grid padding="16px" bg="#EFF6FF">
         {noti.map((n, index) => {
-          return (
-            <Card key={`noti_${index}`} {...n}></Card>
-          );
+          if (n.post_id ==='new'){
+            return (<Grid>가입을 축하합니다.</Grid>)
+          }else{
+            return (
+              <Card key={`noti_${index}`} {...n}></Card>
+            );
+          }
         })}
       </Grid>
     </React.Fragment>

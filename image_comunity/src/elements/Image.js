@@ -59,7 +59,7 @@ const ImageCircle = styled.div`
 `;
 
 const AspectOutter = styled.div`
-    width: 100%;
+    width: auto;
     min-width: 250px;
 
 `;

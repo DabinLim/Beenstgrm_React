@@ -3,6 +3,8 @@ import { produce } from "immer"; // 불변성 관리
 import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 import { auth } from "../../shared/firebase";
 import firebase from "firebase/app";
+import {realtime} from '../../shared/firebase';
+import moment from 'moment';
 
 
 // actions
@@ -115,6 +117,17 @@ const signupFB = (id, pwd, user_name) => {
             dispatch(
               setUser({ user_name: user_name, id: id, user_profile: "", uid: user.user.uid})
             );
+            const _noti_item = realtime.ref(`noti/${user.user.uid}/list`).push();
+            _noti_item.set({
+              post_id:'new',
+              user_name:user_name,
+              image_url: 'https://firebasestorage.googleapis.com/v0/b/dab-react.appspot.com/o/dasfasd.jpeg?alt=media&token=d1c2f213-ced8-44c9-8112-7374bb695558',
+              insert_dt: moment().format('YYYY-MM-DD hh:mm:ss') 
+            })
+            const _noti_list = realtime.ref(`noti/${user.user.uid}`).push();
+            _noti_list.set({
+              read:false
+            })
             history.push("/");
           })
           .catch((error) => {

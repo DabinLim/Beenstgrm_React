@@ -19,7 +19,7 @@ Text.defaultProps = {
     bold: false,
     color: '#222831',
     size: '14px',
-    margin: false,
+    margin: false
 }
 
 const P = styled.p`
@@ -27,6 +27,7 @@ const P = styled.p`
     font-size: ${(props) => props.size};
     font-weight: ${(props) => props.bold? '600':'400'};
     ${(props) => (props.margin? `margin: ${props.margin}` : '')};
+    
 `;
 
 export default Text;
