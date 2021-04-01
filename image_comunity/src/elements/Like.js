@@ -11,7 +11,6 @@ const Like = (props) => {
     const { _onClick } = props
     const [like,setLike] = React.useState(false)
     const like_state = useSelector(state => state.like.list)
-    console.log(like_state)
     const match_id = (e) => {
         if(e.post_id === props.id){
             return true

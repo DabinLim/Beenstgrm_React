@@ -1,8 +1,10 @@
 import React from 'react';
-import {Grid, Image, Text} from '../elements';
+import {Grid, Image, Text, Button} from '../elements';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {actionCreators as commentActions} from '../redux/modules/comment';
+import styled from 'styled-components';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const CommentList = (props) => {
     // 드릴링을 줄이기 위해 자식컴포넌트에서 데이터를 불러오겟슴 (부모컴포넌트에서 데이터를 받는 경우 comment의 데이터가 변하면 둘 다 리렌더링되어 비효율적)   
@@ -22,7 +24,7 @@ const CommentList = (props) => {
 
     return (
         <React.Fragment>
-            <Grid padding='16px'>
+            <Grid padding='16px 0px'>
                 {comment_list[post_id].map(c => {
                     return (<CommentItem key={c.id} {...c}/>)
                 })}
@@ -38,6 +40,16 @@ CommentList.defaultProps = {
 export default CommentList;
 
 const CommentItem = (props) => {
+    const now_user_list = useSelector(state => state.user.user)
+    let now_user;
+    if(now_user_list){
+        now_user = now_user_list.uid
+    }
+    console.log(props)
+    
+    const deleteComment = () => {
+        
+    }
 
     const {user_profile, user_name, user_id, post_id, contents, insert_dt} = props
     
@@ -51,8 +63,14 @@ const CommentItem = (props) => {
             </Grid>
             <Grid is_flex margin='0px 8px'>
                 <Text >{contents}</Text>
-                <Text bold>{insert_dt}</Text>
             </Grid>
+                <Text bold>{insert_dt}</Text>
+                {now_user === user_id && (
+                    <Grid is_column width='auto' margin='auto 4px'>
+                    <DeleteForeverIcon onClick={deleteComment}/>
+                    </Grid>
+                )}
+                
         </Grid>
     )
 }
@@ -65,3 +83,4 @@ CommentItem.defaultProps = {
     contents: '귀여운 콩이네요',
     insert_dt: '2021-01-01 19:00:00'
 }
+

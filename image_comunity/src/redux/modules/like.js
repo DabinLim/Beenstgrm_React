@@ -149,6 +149,7 @@ export default handleActions(
 const actionCreators = {
   addLikeFB,
   setLikeFB,
+  setLike
 };
 
 export { actionCreators };

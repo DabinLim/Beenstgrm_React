@@ -13,10 +13,10 @@ import {
 } from "@material-ui/core";
 
 const PostWrite = (props) => {
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState('');
   const [isActive, setIsActive] = React.useState(true);
   const handleChange = (event) => {
-    setChecked(event.target.checked);
+    setChecked(event.target.value);
   };
   const dispatch = useDispatch();
   // 부모 컴포넌트에서 이미 세션을 확인하고 세션이 있을때만 리덕스 상태를 로그인으로 바꿔주므로 리덕스만 확인
@@ -53,25 +53,25 @@ const PostWrite = (props) => {
         setIsActive(false)
     }
 
-  let checkedLayout;
-  const getLayout = (e) => {
-    checkedLayout = e.target.value;
-    console.log(checkedLayout)
-  };
+  // let checkedLayout;
+  // const getLayout = (e) => {
+  //   checkedLayout = e.target.value;
+  //   console.log(checkedLayout)
+  // };
   
 
   const editPost = () => {
     dispatch(
-      postActions.editPostFB(post_id, { contents: contents }, checkedLayout)
+      postActions.editPostFB(post_id, { contents: contents })
     );
   };
   const addPost = () => {
-    if(!checkedLayout){
+    if(!checked){
         window.alert('레이아웃도 빼먹지 마세요ㅎ')
         return
     }
     
-    dispatch(postActions.addPostFB(contents, checkedLayout));
+    dispatch(postActions.addPostFB(contents, checked));
   };
   if (!is_login) {
     return (
@@ -107,19 +107,19 @@ const PostWrite = (props) => {
               onChange={handleChange}
             >
               <FormControlLabel
-                onClick={getLayout}
+                onChange={handleChange}
                 value="is_row"
                 control={<Radio />}
                 label="텍스트,이미지"
               />
               <FormControlLabel
-                onClick={getLayout}
+                onChange={handleChange}
                 value="is_reverse"
                 control={<Radio />}
                 label="이미지,텍스트"
               />
               <FormControlLabel
-                onClick={getLayout}
+                onChange={handleChange}
                 value="is_flex"
                 control={<Radio />}
                 label="텍스트 상, 이미지 하"

@@ -5,6 +5,7 @@ import { auth } from "../../shared/firebase";
 import firebase from "firebase/app";
 import {realtime} from '../../shared/firebase';
 import moment from 'moment';
+import {actionCreators as likeActions} from './like';
 
 
 // actions
@@ -64,6 +65,7 @@ const logoutFB = () => {
         auth.signOut().then(() => {
             // 로그아웃 액션 
             dispatch(logOut());
+            dispatch(likeActions.setLike([]))
             // 뒤로가기 안됨
             history.replace('/');
         })
@@ -138,6 +140,9 @@ const signupFB = (id, pwd, user_name) => {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        if (errorMessage === 'The email address is already in use by another account.'){
+          window.alert('이메일이 이미 존재합니다')
+        }
       });
   };
 };

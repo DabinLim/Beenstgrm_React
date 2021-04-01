@@ -10,12 +10,15 @@ const Login = (props) => {
 
   const [id, setId] = React.useState('');
   const [pwd, setPwd] = React.useState('');
-
+  const [isActive, setIsActive] = React.useState(true);
   console.log(id)
+  if(id && pwd && isActive){
+    setIsActive(false)
+  }
+  console.log(isActive)
   const login = () => {
 
     console.log(id)
-
 
     if(id === '' || pwd === ''){
       window.alert('이메일과 패스워드를 모두 입력하세요.');
@@ -59,6 +62,7 @@ const Login = (props) => {
           />
         </Grid>
         <Button
+        _disabled={isActive}
           text="로그인하기"
           _onClick={login}
         ></Button>

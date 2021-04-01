@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore, storage } from "../../shared/firebase";
+import { firestore, storage, realtime } from "../../shared/firebase";
 import moment from "moment";
 import { actionCreators as imageActions } from "./image";
 import like from "./like";
@@ -8,8 +8,10 @@ import like from "./like";
 // actions
 const SET_POST = "SET_POST";
 const ADD_POST = "ADD_POST";
-const EDIT_POST = "EDIT_PODT";
+const EDIT_POST = "EDIT_POST";
+const DELETE_POST ='DELETE_POST'
 const LOADING = "LOADING";
+
 
 // action creater
 const setPost = createAction(SET_POST, (post_list, paging, like_list) => ({ post_list, paging, like_list }));
@@ -18,6 +20,7 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
+const deletePost = createAction(DELETE_POST, (post_id) => ({post_id}));
 const loading = createAction(LOADING, (is_loading) => ({is_loading}))
 
 const initialState = {
@@ -187,7 +190,6 @@ const getPostFB = (start = null, size = 3) => {
 
     //start가 null이 아니라면 start부터 데이터 가져옴
     if(start){
-      console.log(start.data())
       query = query.startAt(start);
     }
 
@@ -207,7 +209,6 @@ const getPostFB = (start = null, size = 3) => {
         // _post의 키값들을 배열로 만든다 -> 기본값으로 아이디를 먼저 넣고 [키] (key) : _post[키] (value)를 돌면서 넣는다.
         let post = Object.keys(_post).reduce(
           (acc, cur) => {
-            console.log(cur.indexOf("user_"));
             // cur에서 'user_'의 인덱스가 -1이 아니라면 (user_가 포함이 되어 있다면)
             if (cur.indexOf("user_") !== -1) {
               return {
@@ -345,6 +346,55 @@ const getOnePostFB = (id) => {
   }
 }
 
+const deletePostFB = (post_id) => {
+  return function(dispatch, getState, {history} ){
+    const postDB = firestore.collection('post');
+    const likeDB = firestore.collection('like');
+    const commentDB = firestore.collection('comment');
+
+    const post = getState().post.list.find(l => l.id === post_id);
+    // 해당 post의 실시간 알림 데이터 삭제
+    const noti_data = realtime.ref(`noti/${post.user_info.user_id}/list/`);
+
+    const _noti = noti_data.orderByChild('post_id').equalTo(post_id);
+    let delete_data;
+    _noti.once('value', snapshot => {
+      if(snapshot.exists()){
+        let _data = snapshot.val();
+        console.log(_data)
+        let _noti_list = Object.keys(_data)
+        delete_data = _noti_list
+      }
+    })
+    console.log(delete_data)
+    if(delete_data){
+      for(let i = 0; i < delete_data.length; i++){
+        realtime.ref(`noti/${post.user_info.user_id}/list/${delete_data[i]}`).remove()
+      }
+    }
+    // 해당 포스트 데이터 삭제
+    postDB.doc(post_id).delete().then(doc=> {
+      // 해당 포스트의 like 데이터 삭제
+      likeDB.where('post_id','==',post_id).get().then((docs) => {
+        docs.forEach((doc)=>{
+          console.log(doc)
+          likeDB.doc(doc.id).delete()
+        })
+      })
+      // 해당 포스트의 comment 데이터 삭제
+      commentDB.where('post_id','==',post_id).get().then((docs) => {
+        docs.forEach((doc)=>{
+          console.log(doc)
+          commentDB.doc(doc.id).delete()
+        })
+      })
+
+      dispatch(deletePost(post_id));
+    })
+    history.replace('/')
+  }
+}
+
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
@@ -384,6 +434,17 @@ export default handleActions(
         draft.list[idx] = { ...draft.list[idx], ...action.payload.post };
       }),
 
+      [DELETE_POST]: (state, action) =>
+        produce(state, (draft) => {
+          let new_post = draft.list.filter((v) => {
+            if (v.id !== action.payload.post_id){
+              return v;
+            }
+          })
+          console.log(new_post)
+          draft.list = new_post
+        }),
+
       [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
@@ -400,6 +461,7 @@ const actionCreators = {
   addPostFB,
   editPostFB,
   getOnePostFB,
+  deletePostFB,
 };
 
 export { actionCreators };

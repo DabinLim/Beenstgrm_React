@@ -21,7 +21,7 @@ const CommentWrite = (props) => {
 
     return (
         <React.Fragment>
-            <Grid padding='16px' is_flex>
+            <Grid padding='16px 0px' is_flex>
                 <Input is_Submit onSubmit={write} _onChange={onChange} value={comment_text}
                 placeholder='댓글 내용을 입력하세요.' text='댓글'/>
                 <Button _onClick={write} width='60px' margin='0px 2px 0px 2px'>작성</Button>

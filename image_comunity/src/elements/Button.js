@@ -3,6 +3,11 @@ import styled from "styled-components";
 
 const Button = (props) => {
   const { text, _onClick, is_float, children, margin, width, padding, is_alert, _disabled} = props;
+  const styles = {
+    margin: margin,
+    width: width,
+    padding: padding,
+  }
   if (is_float) {
     return (
       <React.Fragment>
@@ -13,15 +18,9 @@ const Button = (props) => {
   else if (is_alert){
     return (
       <React.Fragment>
-        <NotiButton onClick={_onClick}>{text? text : children}</NotiButton>
+        <NotiButton style={styles}onClick={_onClick}>{text? text : children}</NotiButton>
       </React.Fragment>
     )
-  }
-
-  const styles = {
-    margin: margin,
-    width: width,
-    padding: padding,
   }
 
   return (
@@ -56,6 +55,7 @@ const ElButton = styled.button`
 
 const NotiButton = styled.button`
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
   color: #212121;
   background-color: lavender;
   padding: ${(props) => props.padding};

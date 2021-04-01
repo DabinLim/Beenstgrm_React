@@ -5,6 +5,7 @@ import Like from "../elements/Like";
 import ChatBubbleOutlineRoundedIcon from "@material-ui/icons/ChatBubbleOutlineRounded";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as likeActions } from "../redux/modules/like";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 const Post = (props) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Post = (props) => {
       return true;
     }
   };
+  console.log(history)
 
   const changeLike = () => {
     let like_id;
@@ -64,6 +66,9 @@ const Post = (props) => {
               width="auto"
               padding="8px"
               margin="4px"  
+              _onClick={() => {
+                dispatch(postActions.deletePostFB(props.id))
+              }}
             >
               삭제
             </Button>
@@ -74,7 +79,7 @@ const Post = (props) => {
         {/* <Grid padding="16px">
           <Text>{props.contents}</Text>
         </Grid> */}
-        <Grid layout={props.layout} _onClick={()=>{history.push(`post/${props.id}`)}}>
+        <Grid layout={props.layout} _onClick={()=>{if(history.location.pathname === '/'){history.push(`post/${props.id}`)}}}>
         <Text>{props.contents}</Text>
           <Image shape="rectangle" src={props.image_url}/>
         </Grid>
@@ -84,7 +89,7 @@ const Post = (props) => {
               <Like id={props.id} _onClick={changeLike} />
             </Grid>
             <Grid>
-              <ChatBubbleOutlineRoundedIcon onClick={()=>{history.push(`post/${props.id}`)}}/>
+              <ChatBubbleOutlineRoundedIcon onClick={()=>{if(history.location.pathname === '/'){history.push(`post/${props.id}`)}}}/>
             </Grid>
           </Grid>
           <Text bold margin="0px">

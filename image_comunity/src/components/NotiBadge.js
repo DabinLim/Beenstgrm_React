@@ -29,7 +29,7 @@ const NotiBadge = (props) => {
 
   return (
     <React.Fragment>
-      <Button is_alert>
+      <Button is_alert width='auto' padding='10px'>
       <Badge color="secondary" variant="dot" invisible={is_read} onClick={notiCheck}>
         <NotificationsIcon/>
       </Badge>
