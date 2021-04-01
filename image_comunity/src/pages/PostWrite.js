@@ -108,7 +108,7 @@ const PostWrite = (props) => {
             >
               <FormControlLabel
                 onChange={handleChange}
-                value="is_row"
+                value="is_flex"
                 control={<Radio />}
                 label="텍스트,이미지"
               />
@@ -120,7 +120,7 @@ const PostWrite = (props) => {
               />
               <FormControlLabel
                 onChange={handleChange}
-                value="is_flex"
+                value="is_column"
                 control={<Radio />}
                 label="텍스트 상, 이미지 하"
               />

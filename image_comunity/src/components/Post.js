@@ -15,14 +15,13 @@ const Post = (props) => {
       return true;
     }
   };
-  console.log(history)
 
   const changeLike = () => {
     let like_id;
     let nowLike;
     // 현재 props.id와 post_id가 일치하는 데이터만 필터링함 (1개가 나옴)
     const _match = like_state.filter(match_id);
-    console.log(_match)
+ 
     // _match[0] 으로 _match에 접근이 불가능해 for문을 돌려 접근 ( _match의 형태는 [{..}]) 배열안의 객체 형태 ) 
     for (let i = 0; i < _match.length; i++) {
       if (_match[i].id) {
@@ -31,9 +30,6 @@ const Post = (props) => {
         console.log(_match[i])
       }
     }
-    console.log(like_id)
-    console.log(nowLike)
-    console.log('go')
     dispatch(likeActions.addLikeFB(props.id, like_id, nowLike));
 
   };

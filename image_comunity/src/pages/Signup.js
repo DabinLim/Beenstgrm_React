@@ -1,8 +1,8 @@
 import React from "react";
-import styled from "styled-components";
+
 import { Input, Grid, Text, Button } from "../elements";
 import {useDispatch} from 'react-redux';
-import user, {actionCreators as userActions} from '../redux/modules/user';
+import {actionCreators as userActions} from '../redux/modules/user';
 import {emailCheck, pwdCheck} from '../shared/common';
 
 const Signup = (props) => {
@@ -28,7 +28,7 @@ const Signup = (props) => {
       }
     }
     if(!pwdCheck(pwd)){
-      window.alert('영문,숫자,특수문자를 조합하여 8~16자리 비밀번호를 설정해주세요.')
+      window.alert('영문,숫자,특수문자를 조합하여 9~16자리 비밀번호를 설정해주세요.')
       return
     }
     if(!emailCheck(id)){

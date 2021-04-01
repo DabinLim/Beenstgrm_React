@@ -34,7 +34,7 @@ const Image = (props) => {
 
 Image.defaultProps = {
     shape:'circle',
-    src: 'https://reactdabin.s3.ap-northeast-2.amazonaws.com/file-2021-03-03-21-38-26.png',
+    src: 'https://firebasestorage.googleapis.com/v0/b/dab-react.appspot.com/o/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B5%E1%86%AF.jpeg?alt=media&token=aa5058f2-2495-4ef3-acde-b30699096de9',
     size: 36,
 }
 

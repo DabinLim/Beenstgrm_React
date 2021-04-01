@@ -74,7 +74,7 @@ const addLikeFB = (post_id, like_id, nowLike) => {
         if (docs.empty) {
           likeDB.add(like).then((doc) => {
             like = {...like, id:doc.id};
-            console.log(like)
+            
             dispatch(addLike(like));
             dispatch(setLike(like));
             // 좋아요 숫자 증가를 위해 post 리덕스에서 id가 현재 post_id와 일치하는 데이터 찾아옴
@@ -98,14 +98,14 @@ const addLikeFB = (post_id, like_id, nowLike) => {
                     dispatch(postActions.editPost(post_id,{like_cnt: parseInt(post.like_cnt)-1}))
                 )
             }
-            console.log(newLike)
+            
               like = {
                   post_id:post_id,
                   user_id:user_id,
                   user_like: newLike,
                   id:like_id,
               };
-              console.log(like)
+              
               dispatch(setLike(like))
           })
         }

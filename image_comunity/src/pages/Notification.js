@@ -28,7 +28,7 @@ const Notification = (props) => {
           return _data[s];
         })
 
-        console.log(_noti_list);
+
         setNoti(_noti_list)
       }
     })
@@ -39,7 +39,7 @@ const Notification = (props) => {
       <Grid padding="16px" bg="#EFF6FF">
         {noti.map((n, index) => {
           if (n.post_id ==='new'){
-            return (<Grid>가입을 축하합니다.</Grid>)
+            return (<Grid key={`new${index}`}>가입을 축하합니다.</Grid>)
           }else{
             return (
               <Card key={`noti_${index}`} {...n}></Card>

@@ -32,7 +32,7 @@ const PostDetail = (props) => {
     
   }, []);
 
-  console.log(post);
+  
   return (
     <React.Fragment>
       {post && (

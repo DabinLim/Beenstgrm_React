@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {Spinner} from '../elements';
 
 const InfinityScroll = (props) => {
-    const {children, callNext, is_next, is_loading} = props;
+    const {callNext, is_next, is_loading} = props;
     // 이벤트 발생 300ms 후에 callNext 함수 호출하기
     const _handleScroll = _.throttle(() => {
 

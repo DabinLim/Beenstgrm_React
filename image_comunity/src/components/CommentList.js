@@ -1,9 +1,8 @@
 import React from 'react';
-import {Grid, Image, Text, Button} from '../elements';
+import {Grid, Image, Text} from '../elements';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {actionCreators as commentActions} from '../redux/modules/comment';
-import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const CommentList = (props) => {
@@ -40,18 +39,18 @@ CommentList.defaultProps = {
 export default CommentList;
 
 const CommentItem = (props) => {
+    const dispatch= useDispatch()
     const now_user_list = useSelector(state => state.user.user)
     let now_user;
     if(now_user_list){
         now_user = now_user_list.uid
     }
-    console.log(props)
     
     const deleteComment = () => {
-        
+        dispatch(commentActions.deleteCommentFB(post_id, props.id))
     }
 
-    const {user_profile, user_name, user_id, post_id, contents, insert_dt} = props
+    const {user_name, user_id, post_id, contents, insert_dt} = props
     
     return (
         <Grid is_flex>

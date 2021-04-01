@@ -40,7 +40,7 @@ const Header = (props) => {
               history.push('/noti')
               console.log('알림페이지로')
             }}/>
-            <Button text="내 정보"></Button>
+            {/* <Button text="내 정보"></Button> */}
             {/* <Button _onClick={() => {
               history.push('/noti')
             }}text="알림"></Button> */}

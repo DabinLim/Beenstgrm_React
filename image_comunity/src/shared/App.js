@@ -35,7 +35,7 @@ function App() {
   return (
     <React.Fragment>
       <Grid is_container>
-      <Text size='24px' color='#de60c2' bold margin='14px 0px 14px 10px'>Beenstrgm</Text>
+      <Text _onClick={()=>{history.push('/')}} size='24px' color='#de60c2' bold margin='14px 0px 14px 10px'>Beenstrgm</Text>
       <Grid is_container>
         <Header></Header>
         <BrowserRouter>

@@ -9,11 +9,13 @@ import {actionCreators as postActions} from './post';
 
 const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
+const DELETE_COMMENT = 'DELETE_COMMENT';
 
 const LOADING = "LOADING";
 
 const setComment = createAction(SET_COMMENT, (post_id, comment_list) => ({post_id, comment_list}));
 const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({post_id, comment}));
+const deleteComment = createAction(DELETE_COMMENT, (post_id,comment_id) => ({post_id, comment_id}));
 
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
@@ -99,6 +101,21 @@ const getCommentFB = (post_id) => {
     }
 }
 
+const deleteCommentFB = (post_id, comment_id) => {
+    return function(dispatch, getState) {
+        const commentDB = firestore.collection('comment');
+        commentDB.doc(comment_id).delete().then((docs) => {
+            const postDB = firestore.collection('post')
+            const post = getState().post.list.find(l => l.id === post_id);
+            const decrement = firebase.firestore.FieldValue.increment(-1);
+            postDB.doc(post_id).update({comment_cnt:decrement}).then(
+                dispatch(postActions.editPost(post_id,{comment_cnt: parseInt(post.comment_cnt)-1}))
+            )
+            dispatch(deleteComment(post_id, comment_id))
+        })
+    }
+}
+
 
 export default handleActions(
   {
@@ -108,6 +125,17 @@ export default handleActions(
       [ADD_COMMENT]: (state, action) => produce(state, (draft)=> {
         draft.list[action.payload.post_id].unshift(action.payload.comment);
       }),
+
+      [DELETE_COMMENT]: (state, action) =>
+        produce(state, (draft) => {
+          let new_comment = draft.list[action.payload.post_id].filter((v) => {
+            if (v.id !== action.payload.comment_id){
+              return v;
+            }
+          })
+          draft.list[action.payload.post_id] = new_comment
+        }),
+
       [LOADING]: (state, action) => 
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
@@ -121,6 +149,7 @@ const actionCreators = {
   addCommentFB,
   setComment,
   addComment,
+  deleteCommentFB,
 };
 
 export { actionCreators };

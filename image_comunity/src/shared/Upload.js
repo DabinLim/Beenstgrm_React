@@ -1,8 +1,6 @@
 import React from 'react';
-import {Button} from '../elements';
-import {storage} from'../shared/firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import {actionCreators, actionCreators as imageAction} from '../redux/modules/image';
+import {actionCreators} from '../redux/modules/image';
 
 const Upload = (props) => {
     const dispatch = useDispatch();
@@ -20,17 +18,11 @@ const Upload = (props) => {
             dispatch(actionCreators.setPreview(reader.result))
         }
     }
-    const uploadFB = () => {
-        // uploadImageFB 로 현재 선택한 파일 보냄
-        let image = fileInput.current.files[0];
-        dispatch(imageAction.uploadImageFB(image));
-    }
-
 
     return (
         <React.Fragment>
             <input type='file' onChange={selectFile} ref={fileInput} disabled={is_uploading}/>
-            <Button _onClick={uploadFB}>업로드하기</Button>
+            
         </React.Fragment>
     )
 }

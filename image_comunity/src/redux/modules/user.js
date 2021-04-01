@@ -110,6 +110,17 @@ const signupFB = (id, pwd, user_name) => {
     auth
       .createUserWithEmailAndPassword(id, pwd)
       .then((user) => {
+        const _noti_item = realtime.ref(`noti/${user.user.uid}/list`).push();
+            _noti_item.set({
+              post_id:'new',
+              user_name:user_name,
+              image_url: 'https://firebasestorage.googleapis.com/v0/b/dab-react.appspot.com/o/%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%91%E1%85%B5%E1%86%AF2.jpeg?alt=media&token=4fec5741-cc60-4c73-9ad9-17cfee5025cf',
+              insert_dt: moment().format('YYYY-MM-DD hh:mm:ss') 
+            })
+            const _noti_list = realtime.ref(`noti/${user.user.uid}`).push();
+            _noti_list.set({
+              read:false
+            })
         console.log(user);
         auth.currentUser
           .updateProfile({
@@ -119,19 +130,8 @@ const signupFB = (id, pwd, user_name) => {
             dispatch(
               setUser({ user_name: user_name, id: id, user_profile: "", uid: user.user.uid})
             );
-            const _noti_item = realtime.ref(`noti/${user.user.uid}/list`).push();
-            _noti_item.set({
-              post_id:'new',
-              user_name:user_name,
-              image_url: 'https://firebasestorage.googleapis.com/v0/b/dab-react.appspot.com/o/dasfasd.jpeg?alt=media&token=d1c2f213-ced8-44c9-8112-7374bb695558',
-              insert_dt: moment().format('YYYY-MM-DD hh:mm:ss') 
-            })
-            const _noti_list = realtime.ref(`noti/${user.user.uid}`).push();
-            _noti_list.set({
-              read:false
-            })
-            history.push("/");
-          })
+            
+          }).then(()=>{history.push('/')})
           .catch((error) => {
             console.log(error);
           });
