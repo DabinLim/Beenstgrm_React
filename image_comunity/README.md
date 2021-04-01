@@ -33,8 +33,8 @@
 - 댓글 아이콘을 누르거나 사진,텍스트를 누르면 상세페이지로 이동
 - 로그인 없이 좋아요 불가능
 
- <img src="https://user-images.githubusercontent.com/77574867/113289415-2515e200-932b-11eb-937c-c24bf6951225.png" width="200" height="350">
- <img src="https://user-images.githubusercontent.com/77574867/113289421-28a96900-932b-11eb-8a05-c8950aebbfd7.png" width="200" height="350">
+ <img src="https://user-images.githubusercontent.com/77574867/113289415-2515e200-932b-11eb-937c-c24bf6951225.png" width="300" height="400">
+ <img src="https://user-images.githubusercontent.com/77574867/113289421-28a96900-932b-11eb-8a05-c8950aebbfd7.png" width="300" height="400">
  <img src="https://user-images.githubusercontent.com/77574867/113296960-0caac500-9335-11eb-9862-80b912258822.png" width="300" height="400">
 
 
@@ -47,8 +47,8 @@
 - 메인페이지 에서는 세션 스토리지의 쿠키와 유저정보를 확인하여 로그인 상태 판단
 - 로그아웃 시에는 세션스토리지의 쿠키 만료기간을 앞당겨 로그아웃한다.
 
- <img src="https://user-images.githubusercontent.com/77574867/113289420-2810d280-932b-11eb-80d9-327843a70d4d.png" width="250" height="300">
- <img src="https://user-images.githubusercontent.com/77574867/113289431-2b0bc300-932b-11eb-95d9-90a158081490.png" width="250" height="300">
+ <img src="https://user-images.githubusercontent.com/77574867/113289420-2810d280-932b-11eb-80d9-327843a70d4d.png" width="300" height="400">
+ <img src="https://user-images.githubusercontent.com/77574867/113289431-2b0bc300-932b-11eb-95d9-90a158081490.png" width="300" height="400">
 
 
 
@@ -59,9 +59,9 @@
 - 새로운 댓글을 달면 알림표시 
 
 
-<img src="https://user-images.githubusercontent.com/77574867/113297208-4d0a4300-9335-11eb-8d33-8fb091919365.png" width="250" height="400">
-<img src="https://user-images.githubusercontent.com/77574867/113297475-9d81a080-9335-11eb-834b-017787ff524e.png" width="250" height="400">
-<img src="https://user-images.githubusercontent.com/77574867/113297761-fe10dd80-9335-11eb-825a-1241d0d3269e.png" width="250" height="400">
+<img src="https://user-images.githubusercontent.com/77574867/113297208-4d0a4300-9335-11eb-8d33-8fb091919365.png" width="300" height="400">
+<img src="https://user-images.githubusercontent.com/77574867/113297475-9d81a080-9335-11eb-834b-017787ff524e.png" width="300" height="400">
+<img src="https://user-images.githubusercontent.com/77574867/113297761-fe10dd80-9335-11eb-825a-1241d0d3269e.png" width="300" height="400">
 
 ### 4. 알림 페이지
 
@@ -69,7 +69,7 @@
 - 내가 쓴 게시물에 댓글이 달리면 알림표시가 생긴다.
 - 알림 페이지를 확인하면 알림표시가 꺼진다.
 
-<img src="https://user-images.githubusercontent.com/77574867/113289419-27783c00-932b-11eb-8d77-c132fa84fb5e.png" width="250" height="400">
+<img src="https://user-images.githubusercontent.com/77574867/113289419-27783c00-932b-11eb-8d77-c132fa84fb5e.png" width="300" height="400">
 
 
 ### 5. 게시물 작성 및 수정 페이지
@@ -80,8 +80,8 @@
 - 이미지,내용이 둘 다 있을 경우에만 버튼 활성화, 작성페이지의 경우 레이아웃까지 선택해야 한다.
 - 선택한 레이아웃대로 게시물이 작성된다.
 
-<img src="https://user-images.githubusercontent.com/77574867/113289426-29da9600-932b-11eb-8da7-0ee3a6a1e9dc.png" width="250" height="400">
-<img src="https://user-images.githubusercontent.com/77574867/113289425-29da9600-932b-11eb-9dfe-107761b3356c.png" width="250" height="400">
+<img src="https://user-images.githubusercontent.com/77574867/113289426-29da9600-932b-11eb-8da7-0ee3a6a1e9dc.png" width="300" height="400">
+<img src="https://user-images.githubusercontent.com/77574867/113289425-29da9600-932b-11eb-9dfe-107761b3356c.png" width="300" height="400">
 
 
 ### Firebase
