@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# Beenstgrm
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+> ### 사진과 글을 공유하고 댓글과 좋아요 기능이 있는 미니 sns
+>
+> <br>
 
-In the project directory, you can run:
+## Team
 
-### `yarn start`
+- **임다빈** : 개인 프로젝트
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Environment
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **React.js**
+- **JavaScript**
+- **Firebase**
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Description
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. 메인 페이지
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 로그아웃
+- 마이페이지
+- 친구 등록,조회,삭제
+- 개인별 99개의 상세페이지 이동 및 친구 메인페이지 이동
 
-### `yarn eject`
+ <img src="https://github.com/DabinLim/React_middle/tree/master/image_comunity/src/image/로그인전.png" width="250" height="300">
+<img src="https://user-images.githubusercontent.com/57718605/109966987-3a9bea00-7d34-11eb-837e-d65b88f0744b.png" width="400" height="300">
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2. 로그인 페이지
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 회원 가입
+- 로그인 하기(JWT 사용)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+ <img src="https://github.com/DabinLim/React_middle/tree/master/image_comunity/src/image/로그인.png" width="250" height="300">
+ <img src="https://user-images.githubusercontent.com/57718605/109966809-06282e00-7d34-11eb-8a2b-493ac70e07bd.png" width="250" height="300">
+ <img src="https://user-images.githubusercontent.com/57718605/109966693-e55fd880-7d33-11eb-8464-5028b4ff6cd9.png" width="250" height="300">
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 3. 상세 페이지
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 이전페이지 다음페이지 이동
+- 개인 메인페이지 이동
+- 글작성, 이미지 upload (본인꺼만)
+- 좋아요, 및 삭제기능 (본인꺼만)
 
-### Code Splitting
+<img src="https://user-images.githubusercontent.com/57718605/109967390-b007ba80-7d34-11eb-9b96-30337c455c57.png" width="500" height="300">
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Server
 
-### Analyzing the Bundle Size
+### mongoDB
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- 친구 collections : 내 이메일, 친구 이메일
+- 회원 collections : 이름,이메일,생년월일,비밀번호(hash)
+- 이미지 맵 collections : 99개의 해당하는 이미지 좌표값
+- 카드 collections : 작성자 개정,일차,좋아요,이미지 url,글 작성 목록
 
-### Making a Progressive Web App
+### flask
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- jwt를 이용한 회원정보 인증관리
+- hash함수를 이용한 암호화 복호화
+- jinja2를 이용한 render templates
+- Restful API 관리
 
-### Advanced Configuration
+### JSON
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- ajax json 요청처리
+- json 데이터 전송
